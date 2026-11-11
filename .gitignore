@@ -1,0 +1,34 @@
+# Private local configuration and certificates
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.production.example
+**/*.pem
+**/*.key
+**/*.p12
+**/auth.json
+
+# Generated dependencies, builds and private application files
+**/node_modules/
+**/vendor/
+**/dist/
+backend/runtime/**
+!backend/runtime/.htaccess
+!backend/runtime/index.html
+**/*.log
+**/*.cache
+**/*.sqlite
+**/*.sqlite-*
+**/*.sql.gz
+**/*.zip
+frontend/docs/reference/
+
+# Local tools and editor state
+.local/
+.agents/
+.codex/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
