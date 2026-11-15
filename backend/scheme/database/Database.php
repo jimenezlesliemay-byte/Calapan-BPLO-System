@@ -273,6 +273,14 @@ class Database {
         // rather than opening a second PDO connection in a BPLO controller.
         if ($driver === 'mysql' && getenv('DB_SSL_CA')) {
             $ca = getenv('DB_SSL_CA');
+            error_log('BPLO SSL DEBUG: ' . json_encode([
+    'ca_env_present' => getenv('DB_SSL_CA') !== false,
+    'ca_file_exists' => is_file('/etc/secrets/ca.pem'),
+    'ca_file_readable' => is_readable('/etc/secrets/ca.pem'),
+    'pdo_mysql_loaded' => extension_loaded('pdo_mysql'),
+]));
+            
+
             $isAbsolute = $ca[0] === '/'
                 || (strlen($ca) > 2 && ctype_alpha($ca[0]) && $ca[1] === ':'
                     && ($ca[2] === '/' || $ca[2] === '\\'));
