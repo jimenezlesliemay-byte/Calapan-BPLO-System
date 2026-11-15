@@ -266,44 +266,64 @@ class Database {
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => false,
-            PDO::ATTR_PERSISTENT         => true,
+            PDO::ATTR_PERSISTENT         => false,
 );
 
-        // Aiven MySQL uses TLS. Configure it on the framework-managed connection,
-        // rather than opening a second PDO connection in a BPLO controller.
-        if ($driver === 'mysql' && getenv('DB_SSL_CA')) {
-            $ca = getenv('DB_SSL_CA');
-            error_log('BPLO SSL DEBUG: ' . json_encode([
-    'ca_env_present' => getenv('DB_SSL_CA') !== false,
-    'ca_file_exists' => is_file('/etc/secrets/ca.pem'),
-    'ca_file_readable' => is_readable('/etc/secrets/ca.pem'),
-    'pdo_mysql_loaded' => extension_loaded('pdo_mysql'),
-]));
-            
-
-            $isAbsolute = $ca[0] === '/'
-                || (strlen($ca) > 2 && ctype_alpha($ca[0]) && $ca[1] === ':'
-                    && ($ca[2] === '/' || $ca[2] === '\\'));
-            $caPath = $isAbsolute ? $ca : ROOT_DIR . ltrim($ca, '/\\');
-            if (!is_file($caPath)) {
-                throw new RuntimeException('Aiven SSL CA file not found. Check DB_SSL_CA.');
+        // Aiven MySQL: use the CA provided by Render Secret Files. Never
+        // silently disable TLS verification to make a failed login succeed.
+        $sslCa = ($driver === 'mysql') ? trim((string) (getenv('DB_SSL_CA') ?: '')) : '';
+        if ($sslCa !== '') {
+            $isAbsolute = $sslCa[0] === '/'
+                || (strlen($sslCa) > 2 && ctype_alpha($sslCa[0]) && $sslCa[1] === ':'
+                    && ($sslCa[2] === '/' || $sslCa[2] === '\\'));
+            $caPath = $isAbsolute ? $sslCa : ROOT_DIR . ltrim($sslCa, '/\\');
+            if (!is_file($caPath) || !is_readable($caPath)) {
+                error_log('BPLO DB TLS: CA file missing or unreadable; check DB_SSL_CA and Render Secret Files.');
+                throw new RuntimeException('Database TLS configuration is invalid.');
+            }
+            $pem = file_get_contents($caPath);
+            if ($pem === false || !openssl_x509_read($pem)) {
+                error_log('BPLO DB TLS: CA file does not contain a readable PEM certificate.');
+                throw new RuntimeException('Database TLS certificate is invalid.');
             }
             $options[PDO::MYSQL_ATTR_SSL_CA] = $caPath;
             $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+            // The CA file is present and parses; this does not prove that
+            // the Aiven host, credentials, port or database are correct.
+            error_log('BPLO SSL DEBUG: ' . json_encode([
+                'ca_file_exists' => true,
+                'ca_file_readable' => true,
+                'ca_pem_valid' => true,
+                'pdo_mysql_loaded' => extension_loaded('pdo_mysql'),
+                'db_host_configured' => $host !== '',
+                'db_port_configured' => $port !== null && $port !== '',
+                'db_name_configured' => $dbname_value !== '',
+                'dns_resolves' => filter_var($host, FILTER_VALIDATE_IP) !== false
+                    || gethostbyname($host) !== $host,
+            ]));
+        } elseif ($driver === 'mysql' && getenv('APP_ENV') === 'production') {
+            error_log('BPLO DB TLS: DB_SSL_CA is required in production.');
+            throw new RuntimeException('Database TLS configuration is missing.');
         }
 
         try {
             $this->db = new PDO($dsn, $username, $password, $options);
             $this->driver = $this->db->getAttribute(PDO::ATTR_DRIVER_NAME);
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
+            // Render logs contain the underlying driver error, but the public
+            // API must never expose a stack trace or connection details.
+            error_log('BPLO DB CONNECT ERROR: ' . $e->getMessage());
+            if (getenv('APP_ENV') === 'production') {
+                http_response_code(503);
+                header('Content-Type: application/json; charset=utf-8');
+                header('Cache-Control: no-store');
+                echo json_encode(['message' => 'Database temporarily unavailable. Please try again later.']);
+                exit;
+            }
             $error = load_class('Errors', 'kernel');
-            $error->show_database_error(
-                $e->getMessage(),
-                $this->get_sql ?? '',
-                $this->bind_values ?? [],
-                $e
-            );
+            $error->show_database_error($e->getMessage(), '', [], $e);
         }
+
     }
 
     /**

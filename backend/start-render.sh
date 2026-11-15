@@ -13,12 +13,7 @@ done
 if [ "${#APP_KEY}" -lt 32 ]; then echo 'APP_KEY needs at least 32 characters.' >&2; exit 1; fi
 
 
-if [ -f /etc/secrets/ca.pem ]; then
-  cp /etc/secrets/ca.pem /usr/local/share/aiven-ca.pem
-  chmod 644 /usr/local/share/aiven-ca.pem
-fi
-
-if [ ! -s "$DB_SSL_CA" ]; then echo 'Aiven CA file is missing; add ca.pem as a Render secret file.' >&2; exit 1; fi
+if [ ! -r "$DB_SSL_CA" ] || [ ! -s "$DB_SSL_CA" ]; then echo 'Aiven CA file is missing or unreadable; add ca.pem as a Render secret file and set DB_SSL_CA to its absolute path.' >&2; exit 1; fi
 
 # Render mounts the persistent disk before this script runs.
 for directory in cache logs session private_uploads private_payments; do

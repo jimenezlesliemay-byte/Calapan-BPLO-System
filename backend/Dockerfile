@@ -5,7 +5,11 @@ COPY composer.json composer.lock ./
 RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
 FROM php:8.3-apache-bookworm
-RUN docker-php-ext-install pdo_mysql && a2enmod rewrite headers
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libonig-dev libcurl4-openssl-dev pkg-config \
+    && docker-php-ext-install pdo_mysql mbstring curl \
+    && a2enmod rewrite headers \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html/backend
 COPY . ./
