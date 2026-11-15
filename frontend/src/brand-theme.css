@@ -1,0 +1,606 @@
+:root {
+  --forest: #9a5c2e;
+  --forest-dark: #714521;
+}
+
+.ad-shell .ad-avatar,
+.ad-shell .ad-btn.primary {
+  background: #fce8d3;
+  color: #7c3700;
+}
+
+.ad-shell .ad-btn.primary {
+  border-color: #f0cba6;
+}
+
+.ad-shell .ad-btn.primary:hover {
+  background: #f8d7b4;
+}
+
+.ad-shell .ad-side {
+  width: 248px;
+  background: #fff5ea;
+  color: #62432e;
+  border-right: 1px solid #f0dfcc;
+  box-shadow: 3px 0 16px #684a3508;
+}
+
+.ad-shell .ad-user {
+  min-height: 68px;
+  padding: 8px 8px 16px;
+  border-bottom: 1px solid #ead9c5;
+  gap: 11px;
+}
+
+.ad-shell .ad-user strong {
+  display: block;
+  color: #513b2b;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.ad-shell .ad-user small {
+  color: #8c715a;
+  margin-top: 3px;
+}
+
+.ad-shell .ad-avatar {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  overflow: hidden;
+  padding: 4px;
+  border: 1px solid #f0dfcc;
+  background: #fff;
+}
+
+.ad-shell .ad-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ad-shell .ad-side nav {
+  flex: 1;
+  min-height: 0;
+  gap: 5px;
+  padding: 6px 0;
+}
+
+.ad-shell .ad-side nav button {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  justify-content: stretch;
+  justify-items: stretch;
+  min-height: 40px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  color: #684a35;
+  font-weight: 500;
+  text-align: left;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+.ad-shell .ad-side nav button svg,
+.ad-shell .ad-sidebar-logout svg {
+  width: 18px;
+  flex: 0 0 18px;
+}
+
+.ad-shell .ad-side nav button:hover {
+  background: #ffead6;
+  color: #714521;
+}
+
+.ad-shell .ad-side nav button {
+  color: #684a35;
+}
+
+.ad-shell .ad-side nav button:hover {
+  background: #ffead6;
+}
+
+.ad-shell .ad-side nav button.on {
+  position: relative;
+  background: #fce8d3;
+  color: #714521;
+  font-weight: 700;
+}
+
+.ad-shell .ad-side nav button.on::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  bottom: 9px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: #c79a6c;
+}
+
+.ad-shell .ad-side nav b {
+  background: #f4d0aa;
+  color: #663500;
+}
+
+.ad-shell .ad-sidebar-logout {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  min-height: 40px;
+  justify-content: flex-start;
+  justify-items: stretch;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 0;
+  border-top: 1px solid #ead9c5;
+  border-radius: 0;
+  background: transparent;
+  color: #684a35;
+  text-align: left;
+}
+
+.ad-shell .ad-sidebar-logout:hover {
+  background: #ffead6;
+  color: #714521;
+}
+
+.ad-shell .ad-sidebar-logout:focus-visible {
+  outline: 2px solid #c5a27e;
+  outline-offset: -2px;
+}
+
+.ad-shell .ad-link,
+.ad-shell .ad-box,
+.ad-shell .ad-note i {
+  color: #8d5b35;
+}
+
+.ad-shell .ad-stat:first-child {
+  border-top-color: #d4b28e;
+}
+
+.ad-shell .ad-badge.approved,
+.ad-shell .ad-badge.active {
+  background: #ffedd5;
+  color: #9a4e0a;
+}
+
+.ad-shell .ad-badge.pending {
+  background: #fff2d9;
+  color: #8a5a00;
+}
+
+.ad-shell .ad-badge.verified {
+  background: #d9f2ec;
+  color: #17665a;
+}
+
+.ad-shell .ad-badge.rejected {
+  background: #fbe1df;
+  color: #a3281f;
+}
+
+.ad-shell .ad-box {
+  background: #fff1df;
+}
+
+.ad-shell .ad-note.unread {
+  background: #fff7ed;
+}
+
+.ad-shell .ad-note:hover {
+  background: #fff1df;
+}
+
+.ad-shell .ad-note > svg {
+  color: #b45309;
+}
+
+.ad-shell .ad-note i {
+  background: #d97706;
+}
+
+.ad-shell .ad-note.unread {
+  background: #fff8f0;
+}
+
+.ad-shell .ad-note:hover {
+  background: #fff0e0;
+}
+
+.ad-shell .ad-btn.primary {
+  background: #fce8d3;
+  border-color: #f0cba6;
+  color: #7c3700;
+}
+
+.ad-shell .ad-btn.primary:hover {
+  background: #f8d7b4;
+}
+
+.ad-shell label input:focus,
+.ad-shell select:focus {
+  outline-color: #d5a878;
+}
+
+.to-applicant {
+  color: #b45309;
+  border-color: #d97706;
+}
+
+.portal-shell .portal-sidebar nav button.active {
+  color: #7c3700;
+  background: #fce8d3;
+}
+
+.portal-shell .portal-sidebar {
+  background: #fff5ea;
+  color: #62432e;
+  border-right: 1px solid #f0dfcc;
+}
+
+.portal-shell .portal-logo {
+  border-bottom-color: #ead9c5;
+}
+
+.portal-shell .portal-logo strong,
+.portal-shell .portal-user strong {
+  color: #513b2b;
+}
+
+.portal-shell .portal-logo small,
+.portal-shell .portal-user small {
+  color: #8c715a;
+}
+
+.portal-shell .portal-user > span {
+  background: #fce8d3;
+  color: #7c3700;
+}
+
+.portal-shell .portal-nav-heading,
+.portal-shell .portal-side-foot {
+  color: #8c715a;
+}
+
+.portal-shell .portal-side-foot {
+  border-top-color: #ead9c5;
+}
+
+.portal-shell .portal-sidebar nav button,
+.portal-shell .portal-logout {
+  color: #684a35;
+}
+
+.portal-shell .portal-sidebar nav button:hover:not(.active),
+.portal-shell .portal-logout:hover {
+  background: #ffead6;
+}
+
+.portal-shell .portal-primary {
+  background: #fce8d3;
+  color: #714521;
+  border: 1px solid #f0d7bc;
+}
+
+.portal-shell .portal-user > span {
+  background: #fce8d3;
+  color: #7c3700;
+}
+
+.portal-shell .portal-primary {
+  background: #fce8d3;
+  color: #714521;
+  border: 1px solid #f0d7bc;
+}
+
+.portal-shell .portal-primary:hover {
+  background: #f8dfc4;
+}
+
+.portal-shell .portal-white-btn {
+  color: #7c3700;
+}
+
+.portal-shell .portal-upper,
+.portal-shell .portal-ref,
+.portal-shell .portal-reference {
+  color: #b45309 !important;
+}
+
+.portal-shell .portal-welcome {
+  background: #fff5eb;
+  color: #513b2b;
+  border: 1px solid #f0dfcc;
+}
+
+.portal-shell .portal-welcome span {
+  color: #8a5427;
+}
+
+.portal-shell .portal-welcome p {
+  color: #735d49;
+}
+
+.portal-shell .portal-welcome-symbol {
+  border-color: #ead9c5;
+  color: #a47751;
+}
+
+.portal-shell .portal-stat:first-child,
+.portal-shell .portal-stat:nth-child(4) {
+  border-top-color: #d4b28e;
+}
+
+.portal-shell .portal-selected,
+.portal-shell .portal-status.success {
+  background: #ffedd5;
+  border-color: #f3bb76;
+  color: #9a4e0a;
+}
+
+.portal-shell .portal-badge.approved,
+.portal-shell .portal-badge.released {
+  background: #ffedd5;
+  color: #9a4e0a;
+}
+
+.portal-shell .portal-badge.pending {
+  background: #fff2d9;
+  color: #8a5a00;
+}
+
+.portal-shell .portal-badge.verified {
+  background: #d9f2ec;
+  color: #17665a;
+}
+
+.portal-shell .portal-badge.rejected {
+  background: #fbe1df;
+  color: #a3281f;
+}
+
+.portal-shell .portal-wizard-steps > .active span {
+  background: #fff1e0;
+  border-color: #e9d0b4;
+  color: #714521;
+}
+
+.portal-shell .portal-wizard-steps > .active {
+  color: #714521;
+}
+
+.portal-shell .portal-wizard-steps > .finished span {
+  background: #ffedd5;
+  border-color: #f3bb76;
+  color: #a64b08;
+}
+
+.portal-shell .portal-panel label input:focus,
+.portal-shell .portal-panel label select:focus {
+  border-color: #d5a878;
+}
+
+.portal-shell .portal-success {
+  background: #fff1df;
+  color: #9a4e0a;
+}
+
+.portal-shell .portal-complete > svg,
+.portal-shell .portal-upload-slot svg,
+.portal-shell .portal-map svg,
+.portal-shell .portal-notification-icon {
+  color: #c65a0a;
+}
+
+.portal-shell .portal-panel .portal-upload-slot {
+  background: #fffaf4;
+  border-color: #e9bd91;
+}
+
+.portal-shell .portal-progress .done {
+  color: #b45309;
+}
+
+.portal-shell .portal-progress .done span {
+  background: #ffedd5;
+  border-color: #f3bb76;
+}
+
+.portal-shell .portal-history {
+  border-left-color: #f0c99e;
+}
+
+.portal-shell .portal-track-summary {
+  background: #fff7ed;
+}
+
+.portal-shell .portal-inbox > button {
+  background: #fffaf5;
+  border-color: #f1e4d5;
+}
+
+.portal-shell .portal-inbox > button:not(.read) {
+  background: #fff4e8;
+  border-color: #efd6b9;
+}
+
+.portal-shell .portal-inbox > button:hover {
+  background: #ffeddc;
+}
+
+.portal-shell .portal-inbox i {
+  background: #d97706;
+}
+
+.portal-shell .portal-notification-icon {
+  background: #ffeddc;
+  color: #a64b08;
+}
+
+.portal-shell .portal-inbox > button:focus-visible {
+  outline-color: #c87932;
+}
+
+.portal-shell .portal-check input {
+  accent-color: #a47751;
+}
+
+.portal-shell .portal-sidebar nav button:focus-visible,
+.portal-shell .portal-logout:focus-visible {
+  outline-color: #d5a878;
+}
+
+.bplo-service-card .bplo-service-number {
+  background: #fff1df;
+  color: #b45309;
+}
+
+.bplo-service-card .bplo-service-action,
+.bplo-service-card .bplo-service-count {
+  color: #8d5b35;
+}
+
+.bplo-service-card button.ad-btn.primary,
+.bplo-service-card .ad-btn.primary {
+  background: #fff1e2;
+  border-color: #eed9c1;
+  color: #714521;
+}
+
+.bplo-service-card button.ad-btn.primary:hover,
+.bplo-service-card .ad-btn.primary:hover {
+  background: #f9e6d1;
+}
+
+.bplo-service-card:hover,
+button.bplo-service-card:hover {
+  border-color: #dfc5a7;
+}
+
+.bplo-selected-service {
+  background: #fff7ed;
+  border-color: #f3d0a8;
+  color: #80420c;
+}
+
+.bplo-selected-service p,
+.bplo-selected-service small,
+.bplo-inline-service {
+  color: #9a5b24;
+}
+
+.bplo-inline-service {
+  background: #fff7ed;
+}
+
+.welcome-site .welcome-header nav button:hover {
+  background: #fff1df;
+}
+
+.welcome-site .welcome-hero .eyebrow-pill,
+.welcome-site .welcome-features .eyebrow-pill {
+  background: #fff0dc;
+  color: #a64b08;
+}
+
+.welcome-site .welcome-hero h1 em {
+  color: #a66a3c;
+}
+
+.welcome-site .btn-solid,
+.welcome-site .welcome-header nav .welcome-nav-primary {
+  background: #fff1e2;
+  border: 1px solid #eed9c1;
+  color: #714521;
+}
+
+.welcome-site .btn-solid:hover,
+.welcome-site .welcome-header nav .welcome-nav-primary:hover {
+  background: #f9e6d1;
+}
+
+.welcome-site .hero-note svg,
+.welcome-site .hero-visual-header svg,
+.welcome-site .feature-cards article > span {
+  color: #a47751;
+}
+
+.welcome-site .hero-visual:before {
+  background: linear-gradient(90deg, #e4cdb2, #f3e7d8);
+}
+
+.welcome-site .preview-dot {
+  background: #c9a986;
+}
+
+.welcome-site .hero-metric {
+  background: #fff7ed;
+}
+
+.welcome-site .hero-metric strong {
+  color: #9a4e0a;
+}
+
+.welcome-site .hero-steps span.done {
+  background: #ffedd5;
+  border-color: #dfc5a7;
+  color: #80552f;
+}
+
+.welcome-site .hero-card-foot,
+.welcome-site .feature-card-action {
+  color: #b45309;
+}
+
+.welcome-site .feature-cards article > span,
+.welcome-site .feature-cards .feature-card .feature-icon {
+  background: #fff1df;
+}
+
+.welcome-site .welcome-end {
+  background: #fff3e5;
+  color: #513b2b;
+  border: 1px solid #f0dfcc;
+}
+
+.welcome-site .welcome-end p {
+  color: #735d49;
+}
+
+.welcome-site .welcome-end .btn-solid {
+  color: #7c3700;
+}
+
+.welcome-site .access-mini svg {
+  color: #d97706;
+}
+
+.welcome-site .access-switch button.active,
+.welcome-site .role-picker button.active,
+.welcome-site .access-hint button {
+  color: #80552f;
+}
+
+.welcome-site .access-form input:focus {
+  border-color: #c5a27e;
+  box-shadow: 0 0 0 3px #c5a27e24;
+}
+
+.bplo-public-services .bplo-service-number {
+  background: #fff1df;
+  color: #b45309;
+}
+
+.bplo-public-services .bplo-service-action,
+.bplo-public-services .bplo-service-count {
+  color: #b45309;
+}
+
+.welcome-site button:focus-visible,
+.welcome-site a:focus-visible,
+.welcome-site input:focus-visible,
+.welcome-site select:focus-visible {
+  outline-color: #d5a878;
+}

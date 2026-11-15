@@ -1,0 +1,21 @@
+# Standalone frontend repository
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+!.env.production.example
+*.log
+*.sqlite*
+*.pem
+*.key
+*.p12
+auth.json
+docs/reference/
+.local/
+.agents/
+.codex/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

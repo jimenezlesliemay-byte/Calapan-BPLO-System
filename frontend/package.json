@@ -1,0 +1,24 @@
+{
+  "name": "calapan-bplo-react",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 4173",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "check:structure": "node scripts/check-structure.mjs",
+    "test:ui": "node scripts/check-ui.mjs",
+    "test:reports": "node scripts/test-reports.mjs",
+    "test:cache": "node scripts/test-service-worker.mjs",
+    "test:cache-browser": "node scripts/test-cache-browser.mjs"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}

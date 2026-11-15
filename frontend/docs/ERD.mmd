@@ -1,0 +1,26 @@
+erDiagram
+    USERS ||--o| APPLICANTS : "is applicant"
+    USERS ||--o| ADMIN_USERS : "is administrator"
+    APPLICANTS ||--o{ BUSINESSES : owns
+    BUSINESSES ||--o{ APPLICATIONS : has
+    APPLICATION_TYPES ||--o{ APPLICATIONS : categorizes
+    APPLICATIONS ||--o{ DOCUMENTS : includes
+    REQUIREMENTS ||--o{ DOCUMENTS : describes
+    APPLICATIONS ||--o{ STATUS_LOGS : records
+    APPLICATIONS ||--o{ NOTIFICATIONS : triggers
+    APPLICATIONS ||--o{ INSPECTIONS : schedules
+    APPLICATIONS ||--o| PERMITS : produces
+    USERS ||--o{ AUDIT_LOGS : performs
+    USERS { int user_id PK string full_name string email string password_hash string role datetime created_at }
+    APPLICANTS { int applicant_id PK int user_id FK string contact_number string mailing_address }
+    ADMIN_USERS { int admin_id PK int user_id FK string department string position }
+    BUSINESSES { int business_id PK int applicant_id FK string business_name string business_address string business_type string nature_of_business decimal latitude decimal longitude }
+    APPLICATION_TYPES { int application_type_id PK string name }
+    APPLICATIONS { int application_id PK int business_id FK int application_type_id FK string application_no string current_status datetime application_date text remarks }
+    REQUIREMENTS { int requirement_id PK string requirement_name string category }
+    DOCUMENTS { int document_id PK int application_id FK int requirement_id FK string file_path string verification_status text remarks datetime uploaded_at }
+    STATUS_LOGS { int log_id PK int application_id FK int updated_by FK string status text remarks datetime updated_at }
+    NOTIFICATIONS { int notification_id PK int application_id FK string channel text message boolean is_read datetime created_at }
+    INSPECTIONS { int inspection_id PK int application_id FK datetime scheduled_at string inspector text remarks string state }
+    PERMITS { int permit_id PK int application_id FK string permit_number string pdf_path datetime released_at }
+    AUDIT_LOGS { int audit_id PK int user_id FK string action string record_ref text details datetime created_at }
