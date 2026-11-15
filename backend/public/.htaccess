@@ -4,7 +4,7 @@ DirectoryIndex index.php
 RewriteEngine On
 
 # Allow only the deployed React frontend.
-SetEnvIfNoCase Origin "^https://web-final-frontend-cvnz\.onrender\.com$" BPLO_ALLOWED_ORIGIN=$0
+SetEnvIfNoCase Origin "^https://calapan-bplo-frontend\.onrender\.com$" BPLO_ALLOWED_ORIGIN=$0
 
 # CORS response headers.
 Header always set Access-Control-Allow-Origin "%{BPLO_ALLOWED_ORIGIN}e" env=BPLO_ALLOWED_ORIGIN

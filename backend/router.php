@@ -5,6 +5,7 @@ $allowedOrigins = [
     'http://localhost:4174',
     'http://localhost:4175',
     'http://localhost:4176',
+    'https://calapan-bplo-frontend.onrender.com',
 ];
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
