@@ -3,7 +3,9 @@ DirectoryIndex index.php
 
 RewriteEngine On
 
-# Allow only the deployed React frontend.
+# Allow local Vite/React development and the deployed frontend.
+SetEnvIfNoCase Origin "^https?://localhost(:[0-9]+)?$" BPLO_ALLOWED_ORIGIN=$0
+SetEnvIfNoCase Origin "^https?://127\.0\.0\.1(:[0-9]+)?$" BPLO_ALLOWED_ORIGIN=$0
 SetEnvIfNoCase Origin "^https://calapan-bplo-frontend\.onrender\.com$" BPLO_ALLOWED_ORIGIN=$0
 
 # CORS response headers.

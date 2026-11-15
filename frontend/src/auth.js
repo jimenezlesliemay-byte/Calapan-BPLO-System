@@ -5,7 +5,9 @@ let meRequest = null;
 export const allUsers = () => []; // No browser-stored applicant passwords or demo accounts.
 export function currentUser() { try {return JSON.parse(sessionStorage.getItem(SESSION)||'null');}catch{return null;} }
 function signIn(data) {
-  if (!data?.token || !data?.user) throw Error('Invalid login response from backend.');
+  if (!data || typeof data !== 'object' || !data.token || !data.user) {
+    throw Error('The backend did not return a valid login payload. Check the API URL, CORS allow-list, and backend auth endpoint.');
+  }
   localStorage.setItem('bplo-token',data.token);
   sessionStorage.setItem(SESSION,JSON.stringify(data.user));
   return data.user;

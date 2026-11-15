@@ -1,6 +1,9 @@
 export const defaultCfg = {system:'Business Permit System',city:'Calapan City',email:'',phone:'',emailOn:false,smsOn:false};
 // Database-backed REST adapter for the BPLO LavaLust server. No browser-demo CRUD fallback.
-const BASE = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000').replace(/\/$/, '') + '/api/bplo';
+const legacyApiUrl = import.meta.env.VITE_API_URL || '';
+const configuredBase = import.meta.env.VITE_API_BASE_URL || legacyApiUrl || 'http://localhost:8000';
+const normalizedBase = configuredBase.replace(/\/$/, '');
+const BASE = normalizedBase.includes('/api/bplo') ? normalizedBase : normalizedBase + '/api/bplo';
 const enc = encodeURIComponent;
 export async function request(path, method = 'GET', body) {
   const token = localStorage.getItem('bplo-token');
@@ -8,7 +11,16 @@ export async function request(path, method = 'GET', body) {
   let result;
   try { result = await fetch(BASE + path, { method, cache: 'no-store', headers: { ...(!isForm && body !== undefined ? { 'Content-Type': 'application/json' } : {}), ...(token && { Authorization: `Bearer ${token}` }) }, body: body === undefined ? undefined : isForm ? body : JSON.stringify(body) }); }
   catch { throw Error('Unable to connect to the LavaLust server. Check the API URL and CORS settings.'); }
-  const data = await result.json().catch(() => ({}));
+  const contentType = result.headers.get('content-type') || '';
+  let data;
+  try {
+    data = contentType.includes('application/json') ? await result.json() : JSON.parse(await result.text());
+  } catch {
+    const text = await result.text().catch(() => '');
+    throw Error(text
+      ? 'The backend responded with HTML/non-JSON content. Check that VITE_API_BASE_URL points to the LavaLust backend origin and that the origin is allowed in CORS.'
+      : 'The backend did not return a valid JSON response. Check the API URL and server status.');
+  }
   if (!result.ok) throw Error(data.message || data.error || `Request failed (HTTP ${result.status}).`);
   return data.data ?? data;
 }
